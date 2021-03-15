@@ -1,4 +1,4 @@
-import Post from './Post/Post';
+import Post from './Post/Post.jsx';
 import React from 'react';
 import s from './Post/Post.module.css';
 
@@ -13,7 +13,6 @@ function MyPosts(){
             <div className={s.posts}>
                 <Post message={'раз'} likesCount={3}/>
                 <Post message={'два'} likesCount='5'/>
-
             </div>
         </div>
     )
@@ -21,3 +20,5 @@ function MyPosts(){
 
 
 export default MyPosts
+
+
