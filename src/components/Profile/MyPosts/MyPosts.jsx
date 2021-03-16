@@ -2,13 +2,17 @@ import Post from './Post/Post.jsx';
 import React from 'react';
 import s from './Post/Post.module.css';
 
-function MyPosts(){
+function MyPosts() {
     return (
-        <div>
+        <div className={s.postBlock}>
             My Posts
             <div>
-                <textarea></textarea>
-                <button>add post</button>
+                <div>
+                    <textarea></textarea>
+                </div>
+                <div>
+                    <button>add post</button>
+                </div>
             </div>
             <div className={s.posts}>
                 <Post message={'раз'} likesCount={3}/>
