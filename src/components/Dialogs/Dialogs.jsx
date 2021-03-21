@@ -18,7 +18,7 @@ function Message(props) {
 
 function Dialogs() {
 
-    const dialogsData = [
+    const dialogs    = [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
         {id: 3, name: 'Sveta'},
@@ -27,7 +27,7 @@ function Dialogs() {
         {id: 6, name: 'Valera'},
     ]
 
-    const messageData = [
+    const messages = [
         {id: 1, message: 'hi'},
         {id: 2, message: 'hello it-kamasutra'},
         {id: 3, message: 'yo'},
@@ -35,22 +35,22 @@ function Dialogs() {
         {id: 5, message: 'yo'}
     ]
 
+    const dialogElements = dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
+    const messageElements = messages.map(m => <Message id={m.id} message={m.message}/>)
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem id={dialogsData[0].id} name={dialogsData[0].name}/>
-                <DialogItem id={dialogsData[1].id} name={dialogsData[1].name}/>
+                {dialogElements}
             </div>
             <div className={s.messages}>
-                <Message message={messageData[1].message}/>
-                <Message message={messageData[0].message}/>
-                <Message message={messageData[2].message}/>
-                <Message message={messageData[3].message}/>
-                <Message message={messageData[4].message}/>
+                {messageElements}
             </div>
         </div>
     )
+
+
+
 }
 
 export default Dialogs
