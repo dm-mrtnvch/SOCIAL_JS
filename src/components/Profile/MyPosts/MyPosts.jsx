@@ -3,6 +3,12 @@ import React from 'react';
 import s from './Post/Post.module.css';
 
 function MyPosts() {
+
+    const postData = [
+        {id: 1, message: 'раз мэсэдж', likesCount: 3},
+        {id: 2, message: 'два мэсэдж', likesCount: 5}
+    ]
+
     return (
         <div className={s.postBlock}>
             My Posts
@@ -15,8 +21,8 @@ function MyPosts() {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message={'раз'} likesCount={3}/>
-                <Post message={'два'} likesCount='5'/>
+                <Post message={postData[0].message} likesCount={postData[0].likesCount}/>
+                <Post message={postData[1].message} likesCount={postData[1].likesCount}/>
             </div>
         </div>
     )
