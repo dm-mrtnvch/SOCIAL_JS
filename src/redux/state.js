@@ -21,7 +21,12 @@ let state = {
             {id: 4, message: 'yo'},
             {id: 5, message: 'yo'}
         ]
-    }
+    },
+    sideBar: [
+        {id: 1, name: 'raz'},
+        {id: 2, name: 'dva'},
+        {id: 3, name: 'tri'}
+    ]
 }
 
 export default state

@@ -27,6 +27,7 @@ function App(props) {
                     {/*<Route path='settings' component={}/>*/}
                 </div>
 
+
             </div>
         </BrowserRouter>
     );
