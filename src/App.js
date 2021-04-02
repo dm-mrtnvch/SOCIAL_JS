@@ -14,13 +14,14 @@ function App(props) {
     // const dialogRender = () => <Dialogs dialogs={props.dialogs} messages={props.messages}/>
 
 
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path='/profile' render={() => <Profile state={props.state.profilePage}/>}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.profilePage} addPost={props.addPost}/>}/>
                     <Route path='/dialogs' component={() => <Dialogs state={props.state.dialogsPage}/>}/>
                     {/*<Route path='/news' component={}/>*/}
                     {/*<Route path='/music' component={}/>*/}

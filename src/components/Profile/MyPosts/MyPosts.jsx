@@ -8,11 +8,12 @@ function MyPosts(props) {
 
 
 
-    const postElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
+    const postElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} />)
     let newPostElement = React.createRef()
     const addPost = () => {
         let text = newPostElement.current.value
-        alert(text)
+        props.addPost(text)
+        newPostElement.current.value = ''
     }
 
     return (
