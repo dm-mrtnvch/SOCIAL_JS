@@ -13,8 +13,6 @@ function App(props) {
     // const profileRender = () =>
     // const dialogRender = () => <Dialogs dialogs={props.dialogs} messages={props.messages}/>
 
-
-
     return (
         <BrowserRouter>
             <div className="app-wrapper">
