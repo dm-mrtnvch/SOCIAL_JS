@@ -9,8 +9,8 @@ function Message(props) {
     }
 
     return <div className={s.message}>
-        <textarea ref={newPostElement} ty></textarea>
-        <button onClick={addMessage}>add</button>
+        {/*<textarea ref={newPostElement} ty></textarea>*/}
+        {/*<button onClick={addMessage}>add</button>*/}
         {props.message}
     </div>
 }

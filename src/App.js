@@ -23,8 +23,9 @@ function App(props) {
                                                                   profilePage={props.state.profilePage}
                                                                   dispatch={props.dispatch}
 
+
                     />}/>
-                    <Route path='/dialogs' component={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                    <Route path='/dialogs' component={() => <Dialogs store={props.store}/>}/>
                     {/*<Route path='/news' component={}/>*/}
                     {/*<Route path='/music' component={}/>*/}
                     {/*<Route path='settings' component={}/>*/}
