@@ -5,32 +5,27 @@ import Message from './Message/Message';
 import {sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import StoreContext from '../../StoreContext';
+import {connect} from 'react-redux';
 
-
-function DialogsContainer(props) {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState().dialogsPage
-
-                    const onSendMessageClick = () => {
-                        store.dispatch(sendMessageCreator())
-                    }
-                    const onNewMessageChange = (body) => {
-                        store.dispatch(updateNewMessageBodyCreator(body))
-                    }
-
-                    return (
-                        <Dialogs updateNewMessageBody={onNewMessageChange}
-                                 sendMessage={onSendMessageClick}
-                                 dialogsPage={state}/>
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
+let mapToStateProps = (state) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        updateNewMessageBody: (body) => {
+            dispatch(updateNewMessageBodyCreator(body))
+        },
+        sendMessage: () => {
+            dispatch(sendMessageCreator())
+        }
+    }
+}
+
+let DialogsContainer = connect(mapToStateProps, mapDispatchToProps)(Dialogs)
+
 
 export default DialogsContainer
 
@@ -54,4 +49,30 @@ export default DialogsContainer
     // )
     //
 
+// }
+
+
+// function DialogsContainer(props) {
+//     return (
+//         <StoreContext.Consumer>
+//             {
+//                 (store) => {
+//                     const state = store.getState().dialogsPage
+//
+//                     const onSendMessageClick = () => {
+//                         store.dispatch(sendMessageCreator())
+//                     }
+//                     const onNewMessageChange = (body) => {
+//                         store.dispatch(updateNewMessageBodyCreator(body))
+//                     }
+//
+//                     return (
+//                         <Dialogs updateNewMessageBody={onNewMessageChange}
+//                                  sendMessage={onSendMessageClick}
+//                                  dialogsPage={state}/>
+//                     )
+//                 }
+//             }
+//         </StoreContext.Consumer>
+//     )
 // }

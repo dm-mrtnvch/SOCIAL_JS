@@ -4,39 +4,35 @@ import s from './Post/Post.module.css';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
 import StoreContext from '../../../StoreContext'
+import {connect} from 'react-redux';
 
 
-
-
-
-function MyPostsContainer(props) {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-
-                    const state = store.getState()
-                    const onAddPost = () => {
-                        store.dispatch(addPostActionCreator())
-                    }
-                    let onPostChange = (text) => {
-                        let action = updateNewPostTextActionCreator(text)
-                        store.dispatch(action)
-                    }
-
-                    return (
-                        <MyPosts addPost={onAddPost}
-                                 updateNewPostText={onPostChange}
-                                 posts={state.profilePage.posts}
-                                 newPostText={state.profilePage.newPostText}
-
-                        />
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state) => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreator())
+        },
+        updateNewPostText: (text) => {
+            let action = updateNewPostTextActionCreator(text)
+            dispatch(action)
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+
+export default MyPostsContainer
+
+
+
     //
     // let state = props.store.getState()
 
@@ -64,7 +60,31 @@ function MyPostsContainer(props) {
 //     )
 // }
 
-
-export default MyPostsContainer
-
-
+// function MyPostsContainer(props) {
+//     return (
+//         <StoreContext.Consumer>
+//             {
+//                 (store) => {
+//
+//                     const state = store.getState()
+//                     const onAddPost = () => {
+//                         store.dispatch(addPostActionCreator())
+//                     }
+//                     let onPostChange = (text) => {
+//                         let action = updateNewPostTextActionCreator(text)
+//                         store.dispatch(action)
+//                     }
+//
+//                     return (
+//                         <MyPosts addPost={onAddPost}
+//                                  updateNewPostText={onPostChange}
+//                                  posts={state.profilePage.posts}
+//                                  newPostText={state.profilePage.newPostText}
+// f
+//                         />
+//                     )
+//                 }
+//             }
+//         </StoreContext.Consumer>
+//     )
+// }
