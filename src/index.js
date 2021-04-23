@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 // import {Provider} from './StoreContext';
 
 
-export let rerenderEntireTree = (state) => {
+// export let rerenderEntireTree = (state) => {
     ReactDOM.render(
         // <React.StrictMode>
         <Provider store={store}>
@@ -21,13 +21,13 @@ export let rerenderEntireTree = (state) => {
         ,
         document.getElementById('root')
     )
-}
+// }
 
 
-rerenderEntireTree(store.getState())
-
-
-store.subscribe(() => {
-    let state = store.getState()
-    rerenderEntireTree(state)
-})
+// rerenderEntireTree(store.getState())
+//
+//
+// store.subscribe(() => {
+//     let state = store.getState()
+//     rerenderEntireTree(state)
+// })
