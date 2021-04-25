@@ -2,11 +2,14 @@ import React from 'react';
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
+const SET_USERS = "SET-USERS"
+
 
 const initialState = {
     users: []
 }
+
+
 
 const usersReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -28,14 +31,19 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: state.users.map(u => {
-                    if(u.id === action.userID){
+                    if(u.id === action.userID) {
                         return {
                             ...u,
-                            followed: true
+                            followed: false
                         }
                         return u
                     }
                 })
+            }
+        }
+        case SET_USERS: {
+            return {
+                ...state, users: [...state.users, ...action.users]
             }
         }
         default:
@@ -44,7 +52,9 @@ const usersReducer = (state = initialState, action) => {
 }
 
 
-export const followAC = (userID) => ({type: FOLLOW, userID})
+
+
+export const  followAC = (userID) => ({type: FOLLOW, userID})
 export const unFollowAC = (userID) => ({type: UNFOLLOW, userID})
 export const setUsersAC = (users) => ({type: SET_USERS, users})
 
