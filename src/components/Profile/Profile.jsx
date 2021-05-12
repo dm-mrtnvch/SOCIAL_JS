@@ -6,17 +6,10 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 function Profile(props) {
-debugger
     return (
         <div>
-            <ProfileInfo />
-            <MyPostsContainer
-                // store={props.store}
-                // posts={props.profilePage.posts}
-                //      newPostText={props.profilePage.newPostText}
-                //      dispatch={props.dispatch}
-
-            />
+            <ProfileInfo profile={props.profile}/>
+            <MyPostsContainer/>
 
         </div>
     )
