@@ -7,3 +7,7 @@
     width: 60px;
     background-color: cadetblue;
 }
+
+.loginBlock {
+    float: right;
+}
