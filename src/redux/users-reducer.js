@@ -28,7 +28,8 @@ const usersReducer = (state = initialState, action) => {
                             ...u,
                             followed: true
                         };
-                        return u;
+                    } else {
+                        return u
                     }
                 })
             };
@@ -41,8 +42,9 @@ const usersReducer = (state = initialState, action) => {
                         return {
                             ...u,
                             followed: false
-                        };
-                        return u;
+                        }
+                    } else {
+                        return u
                     }
                 })
             };
