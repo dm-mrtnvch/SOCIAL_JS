@@ -8,6 +8,7 @@ import StoreContext from '../../StoreContext';
 import {connect} from 'react-redux';
 import Redirect from 'react-router-dom/es/Redirect';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 let mapToStateProps = (state) => {
     return {
@@ -26,57 +27,14 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(Dialogs)
 
-let DialogsContainer = connect(mapToStateProps, mapDispatchToProps)(AuthRedirectComponent)
-
-
-export default DialogsContainer
-
-    // const state = props.store.getState().dialogsPage
-
-    // const dialogElements = state.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
-    // const messageElements = state.messages.map(m => <Message id={m.id} message={m.message}/>)
-    // const newMessageBody = state.newMessageBody
-    //
-    // const onSendMessageClick = () => {
-    //     props.store.dispatch(sendMessageCreator())
-    // }
-    // const onNewMessageChange = (body) => {
-    //     props.store.dispatch(updateNewMessageBodyCreator(body))
-    // }
-    //
-    // return (
-    //     <Dialogs updateNewMessageBody={onNewMessageChange}
-    //              sendMessage={onSendMessageClick}
-    //              dialogsPage={state}/>
-    // )
-    //
-
-// }
-
-
-// function DialogsContainer(props) {
-//     return (
-//         <StoreContext.Consumer>
-//             {
-//                 (store) => {
-//                     const state = store.getState().dialogsPage
+// let AuthRedirectComponent = withAuthRedirect(Dialogs)
 //
-//                     const onSendMessageClick = () => {
-//                         store.dispatch(sendMessageCreator())
-//                     }
-//                     const onNewMessageChange = (body) => {
-//                         store.dispatch(updateNewMessageBodyCreator(body))
-//                     }
-//
-//                     return (
-//                         <Dialogs updateNewMessageBody={onNewMessageChange}
-//                                  sendMessage={onSendMessageClick}
-//                                  dialogsPage={state}/>
-//                     )
-//                 }
-//             }
-//         </StoreContext.Consumer>
-//     )
-// }
+// let DialogsContainer = connect(mapToStateProps, mapDispatchToProps)(AuthRedirectComponent)
+
+
+export default compose(
+    connect(mapToStateProps, mapDispatchToProps),
+    withAuthRedirect
+)
+(Dialogs)
