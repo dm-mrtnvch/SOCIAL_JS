@@ -5,6 +5,8 @@ import Message from './Message/Message';
 import {sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogs-reducer';
 import Redirect from 'react-router-dom/es/Redirect';
 import {Field, reduxForm} from 'redux-form';
+import {Textarea} from '../common/FormsControls/FormsControls';
+import {maxLengthCreator, required} from '../../utils/validators/validators';
 
 
 
@@ -15,15 +17,15 @@ function Dialogs(props) {
 
     const dialogElements = state.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
     const messageElements = state.messages.map(m => <Message id={m.id} message={m.message}/>)
-    const newMessageBody = state.newMessageBody
-
-    const onSendMessageClick = () => {
-        props.sendMessage()
-    }
-    const onNewMessageChange = (e) => {
-        let body = e.target.value
-        props.updateNewMessageBody(body)
-    }
+    // const newMessageBody = state.newMessageBody
+    //
+    // const onSendMessageClick = () => {
+    //     props.sendMessage()
+    // }
+    // const onNewMessageChange = (e) => {
+    //     let body = e.target.value
+    //     props.updateNewMessageBody(body)
+    // }
 
     const addNewMessage = (values) => {
         props.sendMessage(values.newMessageBody)
@@ -44,11 +46,15 @@ function Dialogs(props) {
     )
 }
 
-const AddMessageFrom = (props) => {
+const maxLength50 = maxLengthCreator(50)
+
+const AddMessageForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component='textarea' name='newMessageBody' placeholder='enter your message'/>
+                <Field component={Textarea}
+                       validate={[required, maxLength50]}
+                       name='newMessageBody' placeholder='enter your message'/>
             </div>
             <div>
                 <button>send</button>
@@ -59,6 +65,6 @@ const AddMessageFrom = (props) => {
 
 
 
-const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageFrom)
+const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)
 
 export default Dialogs
