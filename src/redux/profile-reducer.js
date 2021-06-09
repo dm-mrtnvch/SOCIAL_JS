@@ -80,7 +80,6 @@ export const setStatus = (status) => ({
 export const getStatus = (status) => (dispatch) => {
     profileAPI.getStatus(status)
         .then(response => {
-            debugger
             dispatch(setStatus(response.data));
         });
 };
