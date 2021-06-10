@@ -8,7 +8,10 @@ function Header(props) {
             <img src="https://i.pinimg.com/736x/01/1f/04/011f04f6f632d44de953360c78244dc3.jpg"/>
             <div className={s.loginBlock}>
                 {
-                    props.isAuth ? props.login
+                    props.isAuth
+                        ? <div>
+                            {props.login} - <button onClick={props.logout}>logout</button>
+                        </div>
                         : <NavLink to={'/login'}>login</NavLink>
 
                 }

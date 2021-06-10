@@ -14,32 +14,38 @@ export const usersAPI = {
             .then(response => response.data);
     },
     follow(userID) {
-        return instance.post(`follow/${userID}`)
+        return instance.post(`follow/${userID}`);
     },
     unFollow(userID) {
-        return instance.delete(`follow/${userID}`)
+        return instance.delete(`follow/${userID}`);
     },
     getProfile(userID) {
-        console.warn('obsolete method. Please use profileAPI object')
-        return profileAPI.getProfile(userID)
+        console.warn('obsolete method. Please use profileAPI object');
+        return profileAPI.getProfile(userID);
     }
 };
 
 export const profileAPI = {
     getProfile(userID) {
-        return instance.get('profile/' + userID)
+        return instance.get('profile/' + userID);
     },
     getStatus(userID) {
-        return instance.get('profile/status/' + userID)
+        return instance.get('profile/status/' + userID);
     },
     updateStatus(status) {
-        return instance.put('profile/status/', {status: status})
+        return instance.put('profile/status/', {status: status});
     }
 };
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get(`auth/me`);
+    },
+    login(email, password, rememberMe = false) {
+        return instance.post('auth/login', {email, password, rememberMe});
+    },
+    logout() {
+        return instance.delete('/auth/login');
     }
-}
+};
 
