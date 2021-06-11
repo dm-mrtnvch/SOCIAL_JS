@@ -4,15 +4,12 @@ import {connect} from 'react-redux';
 import {
     follow, getUsers, getUsersThunkCreator,
     setCurrentPage,
-    setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
+    toggleFollowingProgress,
     toggleIsFetching,
     unFollow
 } from '../../redux/users-reducer';
-import * as axios from 'axios';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import {usersAPI} from '../../api/api';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
@@ -104,6 +101,6 @@ export default compose(
             toggleFollowingProgress,
             getUsers
         }
-    ),
-    withAuthRedirect
+    )
+    // withAuthRedirect
 )(UsersContainer)
