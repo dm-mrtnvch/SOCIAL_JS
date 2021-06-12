@@ -7,7 +7,6 @@ import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 
 class ProfileContainer extends React.Component {
-
     componentDidMount() {
         let userID = this.props.match.params.userID
         if(!userID) {
@@ -16,6 +15,7 @@ class ProfileContainer extends React.Component {
                 this.props.history.push('/login')
             }
         }
+
 
         this.props.getUserProfile(userID)
         this.props.getStatus(userID)
@@ -35,7 +35,7 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorizedUserID: state.auth.userID,
+    authorizedUserID: state.auth.id,
     isAuth: state.auth.isAuth
 })
 

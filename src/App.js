@@ -15,7 +15,8 @@ import Preloader from './components/common/Preloader/Preloader';
 
 class App extends Component {
     componentDidMount() {
-        this.props.initializeApp();
+        this.props.dispatchInitialize();
+        // this.props.initializeApp();
     }
 
 
@@ -47,6 +48,11 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 
+const mapDispatchToProps = dispatch => ({
+    dispatchInitialize: () => { dispatch(initializeApp()) },
+});
+
 export default compose(
     withRouter,
-    connect(mapStateToProps, {initializeApp}))(App);
+    connect(mapStateToProps, mapDispatchToProps))(App);
+    // connect(mapStateToProps, {initializeApp}))(App);

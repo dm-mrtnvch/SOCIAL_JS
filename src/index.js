@@ -20,13 +20,5 @@ ReactDOM.render(
         </Provider>
     </BrowserRouter>, document.getElementById('root')
 );
-// }
 
 
-// rerenderEntireTree(store.getState())
-//
-//
-// store.subscribe(() => {
-//     let state = store.getState()
-//     rerenderEntireTree(state)
-// })
