@@ -5,18 +5,15 @@ import App from './App';
 import store from './redux/redux-store';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
-// import {Provider} from './StoreContext';
 
+setInterval(() => {
+    store.dispatch({type: 'FAKE'})
+}, 1000)
 
-// export let rerenderEntireTree = (state) => {
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App
-                // state={state}
-                //  dispatch={store.dispatch.bind(store)}
-                //  store={store}
-            />
+            <App/>
         </Provider>
     </BrowserRouter>, document.getElementById('root')
 );
