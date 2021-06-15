@@ -1,3 +1,4 @@
+
 import Post from './Post/Post.jsx';
 import React from 'react';
 import s from './Post/Post.module.css';
@@ -7,8 +8,9 @@ import {maxLengthCreator, required} from '../../../utils/validators/validators';
 import {Textarea} from '../../common/FormsControls/FormsControls';
 
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
 
+    console.log('RENDER YO');
 
     const postElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
     let newPostElement = React.createRef();
@@ -39,7 +41,7 @@ function MyPosts(props) {
             </div>
         </div>
     );
-}
+})
 
 
 const maxLength10 = maxLengthCreator(10);
@@ -65,5 +67,3 @@ function AddNewPostForm(props) {
 const AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm);
 
 export default MyPosts;
-
-
