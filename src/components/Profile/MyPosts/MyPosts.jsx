@@ -10,9 +10,11 @@ import {Textarea} from '../../common/FormsControls/FormsControls';
 
 const MyPosts = React.memo((props) => {
 
-    console.log('RENDER YO');
+    const postElements =
+        [...props.posts]
+            .reverse()
+            .map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
-    const postElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
     let newPostElement = React.createRef();
 
     // const addPost = () => {
