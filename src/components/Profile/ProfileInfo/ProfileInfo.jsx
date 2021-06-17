@@ -4,17 +4,15 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-function ProfileInfo(props){
-    if (!props.profile) {
+function ProfileInfo({profile, status, updateStatus}){
+    if (!profile) {
         return <Preloader/>
     }
     return (
         <div>
-            {/*<img src="https://st.hzcdn.com/simgs/pictures/garages/garage-pegboard-tool-organization-with-wall-control-pegboard-wall-control-img~f3d19ad906eafe60_9-1291-1-abc953b.jpg"/>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
-                {/*<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>*/}
+                <img src={profile.photos.large}/>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
     )

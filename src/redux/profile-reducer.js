@@ -42,7 +42,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.taskId)
-            }
+            };
         }
 
         case SET_USER_PROFILE: {
@@ -64,43 +64,35 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
 
-export const deletePostAC = (taskId) => ({type: DELETE_TASK, taskId })
-// export const updateNewPostTextActionCreator = (text) => ({
-//     type: UPDATE_NEW_POST_TEXT,
-//     newText: text
-// });
+export const deletePostAC = (taskId) => ({type: DELETE_TASK, taskId});
 
 export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
     profile
 });
 
-export const getUserProfile = (userID) => (dispatch) => {
-    usersAPI.getProfile(userID)
-        .then(response => {
-            dispatch(setUserProfile(response.data));
-        });
-};
-
 export const setStatus = (status) => ({
     type: SET_STATUS,
     status
 });
 
-export const getStatus = (status) => (dispatch) => {
-    profileAPI.getStatus(status)
-        .then(response => {
-            dispatch(setStatus(response.data));
-        });
+export const getUserProfile = (userID) => async (dispatch) => {
+    const response = await usersAPI.getProfile(userID);
+    dispatch(setUserProfile(response.data));
 };
 
-export const updateStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status));
-            }
-        });
+
+
+export const getStatus = (status) => async (dispatch) => {
+    const response = await profileAPI.getStatus(status);
+    dispatch(setStatus(response.data));
+};
+
+export const updateStatus = (status) => async (dispatch) => {
+    const response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
 };
 
 

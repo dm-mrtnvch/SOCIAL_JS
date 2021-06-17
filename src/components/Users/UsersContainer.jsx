@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import UsersAPIComponent from './UsersAPIComponent';
 import {
     follow, requestUsers,
     setCurrentPage,
@@ -22,38 +21,17 @@ import {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
+        const {currentPage, pageSize} = this.props
 
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
-
-        // this.props.toggleIsFetching(true);
-        //
-        //
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then(data => {
-        //         debugger
-        //         this.props.toggleIsFetching(false);
-        //         this.props.setUsers(data.items);
-        //         this.props.setTotalUsersCount(data.totalCount);
-        //     });
+        this.props.requestUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber) => {
-
-        this.props.requestUsers(pageNumber, this.props.pageSize)
-        //
-        // this.props.setCurrentPage(pageNumber);
-        // this.props.toggleIsFetching(true);
-        //
-        // usersAPI.getUsers(pageNumber, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.toggleIsFetching(false);
-        //         this.props.setUsers(data.items);
-        //     });
+        const {pageSize} = this.props
+        this.props.requestUsers(pageNumber, pageSize)
     };
 
-
     render() {
-        console.log('RENDER USERS');
         return <>
             {
                 this.props.isFetching ? <Preloader/> : null
@@ -65,42 +43,15 @@ class UsersContainer extends React.Component {
                    users={this.props.users}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
-                   // toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
             />
         </>;
     }
 }
 
-
-// const mapStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     };
-// };
-
-//
-// export default withAuthRedirect(connect(mapStateToProps,
-//     {
-//         follow,
-//         unFollow,
-//         setCurrentPage,
-//         toggleIsFetching,
-//         toggleFollowingProgress,
-//         getUsers
-//     }
-// )(UsersContainer));
-
-
 const mapStateToProps = (state) => {
     console.log('mapStateToProps USERS')
     return {
-        // users: getUsers(state),
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
@@ -122,5 +73,4 @@ export default compose(
             requestUsers
         }
     )
-    // withAuthRedirect
 )(UsersContainer)

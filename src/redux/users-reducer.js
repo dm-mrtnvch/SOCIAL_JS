@@ -1,6 +1,7 @@
 import React from 'react';
 import {usersAPI} from '../api/api';
 import {currentPage} from './users-selectors';
+import {updateObjectInArray} from '../utils/object-helpers';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -24,37 +25,29 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'FAKE': {
-            return {...state, fake: state.fake + 1}
-        }
+        // case 'FAKE': {
+        //     return {...state, fake: state.fake + 1}
+        // }
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {
-                            ...u,
-                            followed: true
-                        };
-                    } else {
-                        return u;
-                    }
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', false, {followed: true})
             };
         }
         case UNFOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {
-                            ...u,
-                            followed: false
-                        };
-                    } else {
-                        return u;
-                    }
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', false, {followed: false})
+                //     state.users.map(u => {
+                //     if (u.id === action.userID) {
+                //         return {
+                //             ...u,
+                //             followed: false
+                //         };
+                //     } else {
+                //         return u;
+                //     }
+                // })
             };
         }
         case SET_USERS: {
@@ -101,43 +94,39 @@ export const toggleFollowingProgress = (isFetching, userID) => ({
 
 
 export const requestUsers = (page, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(page));
-        usersAPI.getUsers(page, pageSize)
-            .then(data => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsersCount(data.totalCount));
-            });
+        const data = await usersAPI.getUsers(page, pageSize);
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
     };
 };
 
 
+const followUnfollowFlow = async (dispatch, userID, apiMethod, actionCreator) => {
+    dispatch(toggleIsFetching(true, userID));
+    const response = await apiMethod(userID);
+    if (response.data.resultCode == 0) {
+        dispatch(actionCreator(userID));
+    }
+    dispatch(toggleIsFetching(false, userID));
+}
+
+
 export const follow = (userID) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true, userID));
-        usersAPI.follow(userID)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(followSuccess(userID));
-                }
-                dispatch(toggleIsFetching(false, userID));
-            });
+    return async (dispatch) => {
+        const apiMethod = usersAPI.follow.bind(usersAPI);
+        followUnfollowFlow(dispatch, userID, apiMethod, followSuccess);
     };
 };
 
 
 export const unFollow = (userID) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true, userID));
-        usersAPI.unFollow(userID)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(unfollowSuccess(userID));
-                }
-                dispatch(toggleIsFetching(false, userID));
-            });
+    return async (dispatch) => {
+        const apiMethod = usersAPI.follow.bind(usersAPI);
+        followUnfollowFlow(dispatch, userID, apiMethod, unfollowSuccess);
     };
 };
 
