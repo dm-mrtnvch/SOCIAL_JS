@@ -6,6 +6,7 @@ const ADD_POST = 'ADD-POST';
 // const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_TASK = 'DELETE_TASK';
 
 let initialState = {
     posts: [
@@ -36,6 +37,14 @@ const profileReducer = (state = initialState, action) => {
         //         ...state,
         //         newPostText: action.newText
         //     };
+
+        case DELETE_TASK: {
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.taskId)
+            }
+        }
+
         case SET_USER_PROFILE: {
             return {
                 ...state, profile: action.profile
@@ -55,6 +64,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
 
+export const deletePostAC = (taskId) => ({type: DELETE_TASK, taskId })
 // export const updateNewPostTextActionCreator = (text) => ({
 //     type: UPDATE_NEW_POST_TEXT,
 //     newText: text
